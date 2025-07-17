@@ -10,3 +10,12 @@ services:
   adminer:
     image: adminer
     ports: [ '8080:8080' ]
+  # ui:
+  #   image: node:alpine
+  #   restart: always
+  #   working_dir: /app
+  #   volumes:
+  #     - ./.:/app
+  #   ports:
+  #     - "4004:4004"
+  #   command: sh -c "npm install && npx cds build && cd gen && npx cds serve  --in-memory --profile pg --port 4004"

@@ -30,7 +30,8 @@
         "Material-displayAll": {
           "semanticObject": "Material",
           "action": "displayAll",
-          "title": "{{Material-displayAll.flpTitle}}",
+          "title": "Material",
+          "subTitle": "Browse Materials",
           "signature": {
             "parameters": {},
             "additionalParameters": "allowed"

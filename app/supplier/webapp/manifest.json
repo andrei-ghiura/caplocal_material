@@ -30,7 +30,8 @@
         "Supplier-displayAll": {
           "semanticObject": "Supplier",
           "action": "displayAll",
-          "title": "{{Supplier-displayAll.flpTitle}}",
+          "title": "Supplier",
+          "subTitle": "Browse Suppliers",
           "signature": {
             "parameters": {},
             "additionalParameters": "allowed"

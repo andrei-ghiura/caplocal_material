@@ -33,7 +33,7 @@
                                     "tileType": "sap.ushell.ui.tile.StaticTile",
                                     "properties": {
                                         "title": "Browse Suppliers",
-                                        "targetURL": "#Supplier-displayAll"
+                                        "targetURL": "/supplier/webapp/index.html"
                                     }
                                 }
                             ]

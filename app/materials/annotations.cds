@@ -178,11 +178,7 @@ annotate service.Materials with @(
                 Value: OBS,
                 Label: 'Observatii'
             },
-            {
-                $Type: 'UI.DataField',
-                Value: FURNIZOR,
-                Label: 'FURNIZOR'
-            },
+
             {
                 $Type         : 'UI.DataFieldWithIntentBasedNavigation',
                 Value         : FURNIZOR_ID,
