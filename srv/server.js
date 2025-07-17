@@ -22,6 +22,8 @@
 const fs = require("node:fs");
 const path = require("path");
 const cds = require("@sap/cds");
+const verifyToken = require("../middleware/authMiddleware");
+const bodyParser = require("body-parser");
 
 const getJSONFile = (path) => JSON.parse(fs.readFileSync(path));
 const getObject = (obj, path) =>
@@ -54,6 +56,10 @@ scanForAppFolders = (appFolder) => {
     });
   return appFolders;
 };
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const { SELECT } = require("@sap/cds/lib/ql/cds-ql");
+const INSERT = require("@sap/cds/lib/ql/INSERT");
 
 /**
  * Retrieves all app's manfifest settings for entry 'sap.app/crossNavigation/inbounds'.
@@ -99,7 +105,7 @@ const getApps = () => {
  * One-time event 'bootstrap', emitted immediately after the express.js app
  * has been created and before any middleware or CDS services are added to it.
  */
-cds.once("bootstrap", (app) => {
+cds.once("bootstrap", async (app) => {
   sandbox = app;
 });
 
@@ -109,18 +115,19 @@ cds.once("bootstrap", (app) => {
  */
 cds.once("served", () => {
   // Sandbox configuration
+
   sandbox.get("/appconfig/fioriSandboxConfig.json", (req, res) => {
-    const demoConfig = {
+    const flpConfig = {
       defaultRenderer: "fiori2",
       renderers: {
         fiori2: {
           componentData: {
             config: {
-              enablePersonalization: false,
-              enableUserDefaultParameters: false,
-              enableHideGroups: false,
-              enableSetTheme: false,
-              enableSearch: false,
+              enablePersonalization: true,
+              enableUserDefaultParameters: true,
+              enableHideGroups: true,
+              enableSetTheme: true,
+              enableSearch: true,
               disableSignOut: true,
             },
           },
@@ -128,6 +135,14 @@ cds.once("served", () => {
       },
       applications: getApps(),
       services: {
+        Personalization: {
+          adapter: {
+            config: {
+              clientStorage: "session",
+              enableClientSidePersonalization: true,
+            },
+          },
+        },
         LaunchPage: {
           adapter: {
             config: {
@@ -207,11 +222,11 @@ cds.once("served", () => {
     };
 
     res.status(200);
-    res.send(demoConfig);
+    res.send(flpConfig);
   });
 
   // Sandbox Fiori Launchpad index.html file
-  sandbox.get("/launchpad", (req, res) => {
+  sandbox.get("/launchpad*", (req, res) => {
     res.status(200);
     res.send(`<!DOCTYPE html>
         <html lang="en">
@@ -241,6 +256,62 @@ cds.once("served", () => {
         <body id="content" class="sapUiBody sapUiSizeCompact"></body>
         
         </html>`);
+  });
+
+  sandbox.get("/login", (req, res) => {
+    res.writeHead(200, { "content-type": "text/html" });
+    fs.createReadStream("auth/login.html").pipe(res);
+  });
+  sandbox.get("/register", (req, res) => {
+    res.writeHead(200, { "content-type": "text/html" });
+    fs.createReadStream("auth/register.html").pipe(res);
+  });
+
+  sandbox.use(bodyParser.urlencoded({ extended: true }));
+
+  sandbox.post("/register", async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      const hashedPassword = await bcrypt.hash(password, 10);
+      console.log(hashedPassword);
+      await INSERT.into("UsersModel").entries({
+        username,
+        password: hashedPassword,
+      });
+      res.status(201).json({ message: "User registered successfully" });
+    } catch (error) {
+      res.status(500).json({
+        error: "Registration failed",
+        errorMessage: JSON.stringify(error),
+      });
+    }
+  });
+
+  // User login
+  sandbox.post("/login", async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      const user = await SELECT.one
+        .from(`UsersModel`)
+        .where({ email: req.body.username });
+      console.log("User found:");
+      if (!user) {
+        return res.status(401).json({ error: "Authentication failed" });
+      }
+      console.log(user);
+      const passwordMatch = await bcrypt.compare(password, user.password);
+      if (!passwordMatch) {
+        return res.status(401).json({ error: "Authentication failed" });
+      }
+      const token = jwt.sign({ userId: user._id }, "your-secret-key", {
+        expiresIn: "30d",
+      });
+      res.status(200).json({ token });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ error: "Login failed", errorMessage: JSON.stringify(error) });
+    }
   });
 });
 

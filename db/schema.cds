@@ -1,7 +1,6 @@
 using {
     managed,
-    cuid,
-    temporal
+    cuid
 } from '@sap/cds/common';
 
 namespace com.eudr.lumbermill;
@@ -9,28 +8,44 @@ namespace com.eudr.lumbermill;
 @odata.draft.enabled
 entity Materials : managed, cuid {
     type                   : Association to MaterialType;
-    COD_UNIC_AVIZ          : String(20);
-    SPECIE                 : String(50);
-    DATA                   : Date;
-    APV                    : String(20);
-    LAT                    : String(20);
-    LOG                    : String(20);
-    PLACUTA_ROSIE          : Int16;
-    LUNGIME                : Double;
-    DIAMETRU               : Double;
-    VOLUM_PLACUTA_ROSIE    : Double;
-    VOLUM_TOTAL            : Double;
-    EDITARE_MODIFICARE     : String(20);
-    OBS                    : String(20);
-    FURNIZOR               : Association to Supplier;
+    cod_unic_aviz          : String(40);
+    specie                 : Association to WoodSpecies;
+    data                   : Date;
+    apv                    : String(40);
+    lat                    : Decimal(9, 6);
+    log                    : Decimal(9, 6);
+    nr_placuta_rosie       : Int16;
+    lungime                : Double;
+    diametru               : Double;
+    volum_placuta_rosie    : Double;
+    volum_total            : Double;
+    volum_net_paletizat    : Double;
+    volum_brut_paletizat   : Double;
+    nr_bucati              : Int16;
+    observatii             : String(20);
+    supplier               : Association to Supplier;
     source_processing      : Association to Processings;
     destination_processing : Association to Processings;
 }
 
-entity MaterialType : managed, cuid {
+entity MaterialType : managed {
+    key ID        : String;
+        name      : localized String;
+        materials : Association to many Materials
+                        on materials.type = $self;
+}
+
+entity WoodSpecies : managed, cuid {
     name      : String(255);
     materials : Association to many Materials
-                    on materials.type = $self;
+                    on materials.specie = $self;
+}
+
+entity UsersModel : managed, cuid {
+    key email      : String;
+        password   : String(255);
+        created_at : DateTime @default: current_timestamp;
+        updated_at : DateTime @default: current_timestamp;
 }
 
 annotate Materials with @Capabilities: {
@@ -53,7 +68,7 @@ entity Supplier : managed, cuid {
     phone          : String(20);
     address        : String(255);
     materials      : Association to many Materials
-                         on materials.FURNIZOR = $self
+                         on materials.supplier = $self
 }
 
 entity Processings : managed {
@@ -77,10 +92,3 @@ entity Workshop : managed {
         machines : Association to many Machines
                        on machines.workshop = $self;
 }
-
-// /** Hierarchically organized Code List for Genres */
-// entity Genres : sap.common.CodeList {
-//   key ID   : Integer;
-//   parent   : Association to Genres;
-//   children : Composition of many Genres on children.parent = $self;
-// }

@@ -8,17 +8,19 @@
   "dependencies": {
     "@cap-js/postgres": "^2.0.3",
     "@sap/cds": "^9",
+    "@sap/xssec": "^4.9.0",
+    "bcrypt": "^6.0.0",
     "cds-dbm": "^0.1.4",
     "cds-pg": "^0.1.36",
-    "express": "^4"
+    "express": "^4",
+    "jsonwebtoken": "^9.0.2"
   },
   "engines": {
     "node": ">=20"
   },
   "devDependencies": {
     "@cap-js/cds-types": "^0.13.0",
-    "@cap-js/sqlite": "^2",
-    "cds-launchpad-plugin": "^2.2.0"
+    "@cap-js/sqlite": "^2"
   },
   "scripts": {
     "start": "cds-serve",
@@ -28,5 +30,10 @@
   "sapux": [
     "app/materials",
     "app/supplier"
-  ]
+  ],
+  "cds": {
+    "requires": {
+      "impl": "srv/custom-auth.ts"
+    }
+  }
 }

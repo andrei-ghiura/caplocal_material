@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <style>
+      /* --- Global Styles & Background --- */
+      body,
+      html {
+        height: 100%;
+        margin: 0;
+        font-family: "Segoe UI", "72", Arial, sans-serif;
+        background-color: #f5f6f7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* --- Register Container & Panel --- */
+      .register-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        padding: 20px 0; /* Add padding for smaller screens */
+      }
+
+      .register-panel {
+        background-color: #ffffff;
+        padding: 40px 48px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 380px;
+        text-align: center;
+        box-sizing: border-box;
+      }
+
+      /* --- Logo --- */
+      .logo {
+        margin-bottom: 32px;
+      }
+
+      .logo svg {
+        width: 70px;
+        height: auto;
+      }
+
+      /* --- Form Elements --- */
+      h2 {
+        font-size: 20px;
+        font-weight: 600;
+        color: #333333;
+        margin-top: 0;
+        margin-bottom: 24px;
+      }
+
+      .input-group {
+        margin-bottom: 20px;
+        text-align: left;
+      }
+
+      .input-group label {
+        display: block;
+        font-size: 14px;
+        color: #555555;
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+
+      .input-group input {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #cccccc;
+        border-radius: 4px;
+        font-size: 16px;
+        box-sizing: border-box;
+        transition: border-color 0.2s;
+      }
+
+      .input-group input:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+      }
+
+      /* --- Buttons & Links --- */
+      .register-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: #007bff;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        margin-top: 8px;
+      }
+
+      .register-btn:hover {
+        background-color: #0056b3;
+      }
+
+      .login-link {
+        margin-top: 16px;
+      }
+
+      .login-link a {
+        color: #007bff;
+        text-decoration: none;
+        font-size: 14px;
+      }
+
+      .login-link a:hover {
+        text-decoration: underline;
+      }
+
+      /* --- Footer --- */
+      .page-footer {
+        position: absolute;
+        bottom: 20px;
+        color: #888888;
+        font-size: 12px;
+        text-align: center;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="register-container">
+      <div class="register-panel">
+        <div class="logo">
+          <svg
+            viewBox="0 0 144 72"
+            xmlns="http://www.w3.org/2000/svg"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            stroke-linejoin="round"
+            stroke-miterlimit="2"
+          >
+            <path
+              d="M0 36c0-19.882 16.118-36 36-36s36 16.118 36 36-16.118 36-36 36-36-16.118-36-36Zm108-36h36v72h-36V0Z"
+              fill="#007bff"
+            ></path>
+            <path
+              d="M0 36c0-19.882 16.118-36 36-36v72c-19.882 0-36-16.118-36-36Z"
+              fill="#0056b3"
+            ></path>
+          </svg>
+        </div>
+
+        <h2>Create Account</h2>
+
+        <form action="#" method="post">
+          <div class="input-group">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" name="fullname" required />
+          </div>
+
+          <div class="input-group">
+            <label for="username">User ID or E-mail</label>
+            <input type="email" id="username" name="username" required />
+          </div>
+
+          <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required />
+          </div>
+
+          <div class="input-group">
+            <label for="confirm-password">Confirm Password</label>
+            <input
+              type="password"
+              id="confirm-password"
+              name="confirm-password"
+              required
+            />
+          </div>
+
+          <button type="submit" class="register-btn">Register</button>
+        </form>
+
+        <div class="login-link">
+          <a href="/login">Already have an account? Log In</a>
+        </div>
+      </div>
+    </div>
+
+    <footer class="page-footer">
+      Copyright © 2025 SAP SE or an SAP affiliate company. All rights reserved.
+    </footer>
+  </body>
+</html>
