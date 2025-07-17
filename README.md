@@ -29,7 +29,13 @@ Learn more at https://cap.cloud.sap/docs/get-started/.
 ```
 docker-compose -f pg.yml up -d
 
+docker-compose down
+
 cds build
 
-cds deploy
+cds deploy --profile pg
+
+
+ docker system prune --all
+
 ```

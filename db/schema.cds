@@ -1,15 +1,14 @@
 using {
-    Currency,
     managed,
     cuid,
-    sap
+    temporal
 } from '@sap/cds/common';
 
 namespace com.eudr.lumbermill;
 
 @odata.draft.enabled
 entity Materials : managed, cuid {
-
+    type                   : Association to MaterialType;
     COD_UNIC_AVIZ          : String(20);
     SPECIE                 : String(50);
     DATA                   : Date;
@@ -26,6 +25,12 @@ entity Materials : managed, cuid {
     FURNIZOR               : Association to Supplier;
     source_processing      : Association to Processings;
     destination_processing : Association to Processings;
+}
+
+entity MaterialType : managed, cuid {
+    name      : String(255);
+    materials : Association to many Materials
+                    on materials.type = $self;
 }
 
 annotate Materials with @Capabilities: {

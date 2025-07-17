@@ -29,7 +29,7 @@
       "inbounds": {
         "Supplier-displayAll": {
           "semanticObject": "Supplier",
-          "action": "displayAll",
+          "action": "display",
           "title": "Supplier",
           "subTitle": "Browse Suppliers",
           "signature": {
