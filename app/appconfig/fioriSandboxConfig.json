@@ -1,0 +1,79 @@
+{
+    "services": {
+        "LaunchPage": {
+            "adapter": {
+                "config": {
+                    "groups": [
+                        {
+                            "id": "Material",
+                            "title": "Material",
+                            "isPreset": true,
+                            "isVisible": true,
+                            "isGroupLocked": false,
+                            "tiles": [
+                                {
+                                    "id": "MaterialsList",
+                                    "tileType": "sap.ushell.ui.tile.StaticTile",
+                                    "properties": {
+                                        "title": "Browse Materials",
+                                        "targetURL": "#Materials-displayAll"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "id": "Supplier",
+                            "title": "Supplier",
+                            "isPreset": true,
+                            "isVisible": true,
+                            "isGroupLocked": false,
+                            "tiles": [
+                                {
+                                    "id": "SupplierList",
+                                    "tileType": "sap.ushell.ui.tile.StaticTile",
+                                    "properties": {
+                                        "title": "Browse Suppliers",
+                                        "targetURL": "#Supplier-displayAll"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "NavTargetResolution": {
+            "config": {
+                "enableClientSideTargetResolution": true
+            }
+        },
+        "ClientSideTargetResolution": {
+            "adapter": {
+                "config": {
+                    "inbounds": {
+                        "MaterialsList": {
+                            "semanticObject": "Material",
+                            "action": "displayAll",
+                            "title": "Browse Materials",
+                            "resolutionResult": {
+                                "applicationType": "SAPUI5",
+                                "additionalInformation": "SAPUI5.Component=materials",
+                                "url": "/materials/webapp"
+                            }
+                        },
+                        "SupplierList": {
+                            "semanticObject": "Supplier",
+                            "action": "displayAll",
+                            "title": "Browse Suppliers",
+                            "resolutionResult": {
+                                "applicationType": "SAPUI5",
+                                "additionalInformation": "SAPUI5.Component=suppliers",
+                                "url": "/supplier/webapp"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
