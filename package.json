@@ -13,14 +13,16 @@
     "cds-dbm": "^0.1.4",
     "cds-pg": "^0.1.36",
     "express": "^4",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "qrious": "^4.0.2"
   },
   "engines": {
     "node": ">=20"
   },
   "devDependencies": {
     "@cap-js/cds-types": "^0.13.0",
-    "@cap-js/sqlite": "^2"
+    "@cap-js/sqlite": "^2",
+    "@sap/ux-specification": "^1.136.3"
   },
   "scripts": {
     "start": "cds-serve",

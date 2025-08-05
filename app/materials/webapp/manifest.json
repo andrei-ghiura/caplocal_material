@@ -127,7 +127,20 @@
               "controlConfiguration": {
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
-                    "type": "ResponsiveTable"
+                    "type": "ResponsiveTable",
+                    "enableExport": true
+                  }
+                }
+              },
+              "content": {
+                "header": {
+                  "actions": {
+                    "scan": {
+                      "press": ".extension.materials.ext.controller.List-Extension.onScan",
+                      "visible": true,
+                      "enabled": true,
+                      "text": "Scan"
+                    }
                   }
                 }
               }
@@ -143,6 +156,15 @@
               "editableHeaderContent": false,
               "contextPath": "/Materials"
             }
+          }
+        }
+      }
+    },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.fe.templates.ListReport.ListReportController#materials::MaterialsList": {
+            "controllerName": "materials.ext.controller.List-Extension"
           }
         }
       }
