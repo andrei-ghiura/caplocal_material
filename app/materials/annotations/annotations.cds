@@ -1,248 +1,89 @@
 using CatalogService as service from '../../../srv/service';
 
-annotate service.Materials with {
-    diametru            @Measures.Unit   : 'cm';
-    lungime             @Measures.Unit   : 'cm';
-    volum_total         @Measures.Unit   : 'm3';
-    volum_placuta_rosie @Measures.Unit   : 'm3';
-    observatii          @UI.MultiLineText: true;
-    type                @(Common: {
+using from './FieldGroup.annotations';
+using from './LineItem.annotations';
+
+annotate service.Materials with
+{
+    cod_unic_aviz          @Common.Label: 'Cod Unic Aviz';
+    data                   @Common.Label: 'Data';
+    apv                    @Common.Label: 'APV';
+    lat                    @Common.Label: 'Latitudine'                @Measures.Unit   : '°';
+    log                    @Common.Label: 'Longitudine'  @Measures.Unit   : '°';
+    nr_placuta_rosie       @Common.Label: 'Nr. Placuță Rosie';
+    nr_bucati              @Common.Label: 'Nr. Bucăți'                @Measures.Unit   : 'buc';
+    source_processing      @Common.Label: 'Sursa Procesare';
+    destination_processing @Common.Label: 'Destinația Procesare';
+    volum_net_paletizat    @Common.Label: 'Volum Net Paletizat'       @Measures.Unit   : 'm³';
+    volum_brut_paletizat   @Common.Label: 'Volum Brut Paletizat'      @Measures.Unit   : 'm³';
+    diametru               @Common.Label: 'Diametru'                  @Measures.Unit   : 'cm';
+    lungime                @Common.Label: 'Lungime'                   @Measures.Unit   : 'cm';
+    volum_total            @Common.Label: 'Volum Total'               @Measures.Unit   : 'm³';
+    volum_placuta_rosie    @Common.Label: 'Volum Placuță Rosie'       @Measures.Unit   : 'm³';
+    observatii             @Common.Label: 'Observații'                @UI.MultiLineText: true;
+    specie                 @(Common:
+    {
+        ExternalID              : specie.name,
+        FieldControl            : #Mandatory,
+        Label                   : 'Specie lemnoasă',
+        ValueListWithFixedValues: true,
+        ValueList               :
+        {
+            $Type         : 'Common.ValueListType',
+            CollectionPath: 'WoodSpecies',
+            Parameters    : [
+            {
+                $Type            : 'Common.ValueListParameterOut',
+                LocalDataProperty: 'specie_ID',
+                ValueListProperty: 'ID',
+            }],
+        },
+    });
+    type                @(Common:
+    {
         ExternalID              : type.name,
         FieldControl            : #Mandatory,
         Label                   : 'Categorie Material',
         ValueListWithFixedValues: true,
-        ValueList               : {
+        ValueList               :
+        {
             $Type         : 'Common.ValueListType',
             CollectionPath: 'MaterialType',
-            Parameters    : [{
+            Parameters    : [
+            {
                 $Type            : 'Common.ValueListParameterOut',
                 LocalDataProperty: 'type_ID',
                 ValueListProperty: 'ID',
             }],
         },
     });
-    supplier            @(Common: {
+    supplier            @(Common:
+    {
         Label       : 'Furnizor',
         ExternalID  : supplier.name,
         FieldControl: #Mandatory,
-        ValueList   : {
+        ValueList   :
+        {
             $Type         : 'Common.ValueListType',
             CollectionPath: 'Supplier',
             Parameters    : [
-                {
-                    $Type            : 'Common.ValueListParameterOut',
-                    LocalDataProperty: 'supplier_ID',
-                    ValueListProperty: 'ID',
-                },
-                {
-                    $Type            : 'Common.ValueListParameterDisplayOnly',
-                    ValueListProperty: 'name',
-                },
-                {
-                    $Type            : 'Common.ValueListParameterDisplayOnly',
-                    ValueListProperty: 'address',
-                },
-                {
-                    $Type            : 'Common.ValueListParameterDisplayOnly',
-                    ValueListProperty: 'email',
-                },
-                {
-                    $Type            : 'Common.ValueListParameterDisplayOnly',
-                    ValueListProperty: 'phone',
-                },
+                {$Type: 'Common.ValueListParameterOut',LocalDataProperty: 'supplier_ID',ValueListProperty: 'ID',},
+                {$Type: 'Common.ValueListParameterDisplayOnly',                         ValueListProperty: 'name',},
+                {$Type: 'Common.ValueListParameterDisplayOnly',                         ValueListProperty: 'address',},
+                {$Type: 'Common.ValueListParameterDisplayOnly',                         ValueListProperty: 'email',},
+                {$Type: 'Common.ValueListParameterDisplayOnly',                         ValueListProperty: 'phone',},
             ],
         },
     });
 
 }
 
-annotate service.Materials with @(
-    UI                       : {LineItem: [
-        {
-            $Type: 'UI.DataField',
-            Value: cod_unic_aviz,
-            Label: 'Cod Unic Aviz'
-        },
-        {
-            $Type: 'UI.DataField',
-            Value: type_ID,
-            Label: 'Categorie Material',
-        },
-        {
-            $Type: 'UI.DataField',
-            Value: specie_ID,
-            Label: 'Specie'
-        },
-        {
-            $Type: 'UI.DataField',
-            Value: data,
-            Label: 'Data'
-        },
-        {
-            $Type: 'UI.DataField',
-            Value: apv,
-            Label: 'APV'
-        },
-        {
-            $Type: 'UI.DataField',
-            Value: lat,
-            Label: 'Lat'
-        },
-        {
-            $Type: 'UI.DataField',
-            Value: log,
-            Label: 'Log'
-        },
-        {
-            $Type: 'UI.DataField',
-            Value: nr_placuta_rosie,
-            Label: 'Placuta Rosie'
-        },
-        {
-            $Type: 'UI.DataField',
-            Value: lungime,
-            Label: 'Lungime'
-        },
-        {
-            $Type: 'UI.DataField',
-            Value: diametru,
-            Label: 'Diametru'
-        },
-        {
-            $Type: 'UI.DataField',
-            Value: volum_placuta_rosie,
-            Label: 'Volum Placuta Rosie'
-        },
-        {
-            $Type: 'UI.DataField',
-            Value: volum_total,
-            Label: 'Volum Total'
-        }
-    ]},
-    UI.Facets                : [
-        {
-            $Type : 'UI.ReferenceFacet',
-            Label : 'Detalii',
-            ID    : 'Detalii',
-            Target: '@UI.FieldGroup#Detalii',
-        },
-        {
-            $Type        : 'UI.ReferenceFacet',
-            Label        : 'Dimensiuni',
-            ID           : 'Dimensiuni',
-            Target       : '@UI.FieldGroup#Dimensiuni',
-            ![@UI.Hidden]: (type.name=='Buștean'),
+annotate service.Materials with @(UI.Facets: [
+    {$Type : 'UI.ReferenceFacet',Label : 'Tip Material', ID: 'TipMaterial',  Target: '@UI.FieldGroup#TipMaterial'                                      },
+    {$Type : 'UI.ReferenceFacet',Label : 'Detalii',      ID: 'Detalii',      Target: '@UI.FieldGroup#Detalii'},
+    {$Type : 'UI.ReferenceFacet',Label : 'Dimensiuni',   ID: 'Dimensiuni',   Target: '@UI.FieldGroup#Dimensiuni' },
+    {$Type : 'UI.ReferenceFacet',Label : 'Furnizor',     ID: 'Furnizor',     Target: '@UI.FieldGroup#Furnizor'                                         },
+    {$Type : 'UI.ReferenceFacet',Label : 'Observatii',   ID: 'Observatii',   Target: '@UI.FieldGroup#Observatii'                                       }
+],
 
-        },
-        {
-            $Type : 'UI.ReferenceFacet',
-            Label : 'Furnizor',
-            ID    : 'Furnizor',
-            Target: '@UI.FieldGroup#Furnizor',
-        },
-        {
-            $Type : 'UI.ReferenceFacet',
-            Label : 'Observatii',
-            ID    : 'Observatii',
-            Target: '@UI.FieldGroup#Observatii',
-        }
-    ],
-    UI.FieldGroup #Furnizor  : {
-        $Type: 'UI.FieldGroupType',
-        Label: 'Furnizor',
-        Data : [{
-            $Type: 'UI.DataField',
-            Value: supplier_ID,
-            Label: 'Furnizor',
-        }]
-    },
-    UI.FieldGroup #Observatii: {
-        $Type: 'UI.FieldGroupType',
-        Label: 'Observatii',
-        Data : [{
-            $Type: 'UI.DataField',
-            Value: observatii,
-            Label: 'Observatii'
-        }]
-    },
-    UI.FieldGroup #Dimensiuni: {
-        $Type: 'UI.FieldGroupType',
-        Label: 'Dimensiuni',
-        Data : [
-            {
-                $Type: 'UI.DataField',
-                Value: lungime,
-                Label: 'Lungime'
-            },
-            {
-                $Type: 'UI.DataField',
-                Value: diametru,
-                Label: 'Diametru'
-            },
-            {
-                $Type: 'UI.DataField',
-                Value: volum_placuta_rosie,
-                Label: 'Volum Placuta Rosie'
-            },
-            {
-                $Type: 'UI.DataField',
-                Value: volum_total,
-                Label: 'Volum Total'
-            }
-        ]
-    },
-    UI.FieldGroup #Detalii   : {
-        $Type: 'UI.FieldGroupType',
-        Data : [
-            {
-                $Type: 'UI.DataField',
-                Value: cod_unic_aviz,
-                Label: 'Cod Unic Aviz'
-            },
-            {
-                $Type: 'UI.DataField',
-                Value: type_ID,
-                Label: 'Categorie Material',
-            },
-            {
-                $Type: 'UI.DataField',
-                Value: specie_ID,
-                Label: 'Specie'
-            },
-            {
-                $Type: 'UI.DataField',
-                Value: data,
-                Label: 'Data'
-            },
-            {
-                $Type: 'UI.DataField',
-                Value: apv,
-                Label: 'APV'
-            },
-            {
-                $Type: 'UI.DataField',
-                Value: lat,
-                Label: 'Lat'
-            },
-            {
-                $Type: 'UI.DataField',
-                Value: log,
-                Label: 'Log'
-            },
-            {
-                $Type: 'UI.DataField',
-                Value: nr_placuta_rosie,
-                Label: 'Placuta Rosie'
-            },
-
-
-            {
-                $Type: 'UI.DataField',
-                Value: observatii,
-                Label: 'Observatii'
-            }
-
-
-        ]
-    },
 );

@@ -25,11 +25,13 @@
   "scripts": {
     "start": "cds-serve",
     "watch-materials": "cds watch --open materials/webapp/index.html?sap-ui-xx-viewCache=false",
-    "watch-supplier": "cds watch --open supplier/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-supplier": "cds watch --open supplier/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-reception": "cds watch --open reception/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "sapux": [
     "app/materials",
-    "app/supplier"
+    "app/supplier",
+    "app/reception"
   ],
   "cds": {
     "requires": {

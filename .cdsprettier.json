@@ -1,0 +1,5 @@
+{
+  "openingBraceInNewLine": true,
+  "formatDocComments": true,
+  "boolOpsAtLineEnd": true
+}

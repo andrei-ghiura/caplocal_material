@@ -31,11 +31,13 @@ entity Materials : managed, cuid {
 entity MaterialType : managed {
     key ID        : String;
         name      : localized String;
+        fieldGroup: String;
         materials : Association to many Materials
                         on materials.type = $self;
 }
 
-entity WoodSpecies : managed, cuid {
+entity WoodSpecies : managed {
+    key ID        : String;
     name      : String(255);
     materials : Association to many Materials
                     on materials.specie = $self;

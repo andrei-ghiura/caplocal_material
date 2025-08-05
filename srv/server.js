@@ -146,42 +146,7 @@ cds.once("served", () => {
         LaunchPage: {
           adapter: {
             config: {
-              groups: [
-                {
-                  id: "Material",
-                  title: "Material",
-                  isPreset: true,
-                  isVisible: true,
-                  isGroupLocked: false,
-                  tiles: [
-                    {
-                      id: "MaterialsList",
-                      tileType: "sap.ushell.ui.tile.StaticTile",
-                      properties: {
-                        title: "Browse Materials",
-                        targetURL: "#Materials-displayAll",
-                      },
-                    },
-                  ],
-                },
-                {
-                  id: "Supplier",
-                  title: "Supplier",
-                  isPreset: true,
-                  isVisible: true,
-                  isGroupLocked: false,
-                  tiles: [
-                    {
-                      id: "SupplierList",
-                      tileType: "sap.ushell.ui.tile.StaticTile",
-                      properties: {
-                        title: "Browse Suppliers",
-                        targetURL: "/supplier/webapp/index.html",
-                      },
-                    },
-                  ],
-                },
-              ],
+              groups: [],
             },
           },
         },
