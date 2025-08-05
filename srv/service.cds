@@ -1,6 +1,6 @@
 using {com.eudr.lumbermill as my} from '../db/schema';
 
-service CatalogService {
+service CatalogService @(requires: 'authenticated-user'){
     entity Materials    as projection on my.Materials;
     entity Processings  as projection on my.Processings;
     entity Machines     as projection on my.Machines;

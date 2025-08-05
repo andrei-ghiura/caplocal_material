@@ -9,7 +9,7 @@ annotate service.Materials with
     data                   @Common.Label: 'Data';
     apv                    @Common.Label: 'APV';
     lat                    @Common.Label: 'Latitudine'                @Measures.Unit   : '°';
-    log                    @Common.Label: 'Longitudine'  @Measures.Unit   : '°';
+    log                    @Common.Label: 'Longitudine'               @Measures.Unit   : '°';
     nr_placuta_rosie       @Common.Label: 'Nr. Placuță Rosie';
     nr_bucati              @Common.Label: 'Nr. Bucăți'                @Measures.Unit   : 'buc';
     source_processing      @Common.Label: 'Sursa Procesare';

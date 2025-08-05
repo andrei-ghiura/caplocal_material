@@ -61,7 +61,12 @@ annotate Supplier with @Capabilities: {
     Updatable,
     Deletable
 };
+annotate Processings with @Capabilities: {
+    Insertable,
+    Updatable,
+    Deletable};
 
+@odata.draft.enabled
 
 entity Supplier : managed, cuid {
     name           : String(255);
@@ -73,6 +78,7 @@ entity Supplier : managed, cuid {
                          on materials.supplier = $self
 }
 
+@odata.draft.enabled
 entity Processings : managed {
     key ID               : Integer;
         name             : String(255);

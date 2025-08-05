@@ -101,6 +101,9 @@ const getApps = () => {
   return apps;
 };
 
+
+
+
 /**
  * One-time event 'bootstrap', emitted immediately after the express.js app
  * has been created and before any middleware or CDS services are added to it.
@@ -123,11 +126,11 @@ cds.once("served", () => {
         fiori2: {
           componentData: {
             config: {
-              enablePersonalization: true,
-              enableUserDefaultParameters: true,
-              enableHideGroups: true,
-              enableSetTheme: true,
-              enableSearch: true,
+              enablePersonalization: false,
+              enableUserDefaultParameters: false,
+              enableHideGroups: false,
+              enableSetTheme: false,
+              enableSearch: false,
               disableSignOut: true,
             },
           },
@@ -154,35 +157,7 @@ cds.once("served", () => {
           config: {
             enableClientSideTargetResolution: true,
           },
-        },
-        // ClientSideTargetResolution: {
-        //   adapter: {
-        //     config: {
-        //       inbounds: {
-        //         MaterialsList: {
-        //           semanticObject: "Material",
-        //           action: "displayAll",
-        //           title: "Browse Materials",
-        //           resolutionResult: {
-        //             applicationType: "SAPUI5",
-        //             additionalInformation: "SAPUI5.Component=materials",
-        //             url: "/materials/webapp",
-        //           },
-        //         },
-        //         SupplierList: {
-        //           semanticObject: "Supplier",
-        //           action: "displayAll",
-        //           title: "Browse Suppliers",
-        //           resolutionResult: {
-        //             applicationType: "SAPUI5",
-        //             additionalInformation: "SAPUI5.Component=suppliers",
-        //             url: "/supplier/webapp",
-        //           },
-        //         },
-        //       },
-        //     },
-        //   },
-        // },
+        }
       },
     };
 
@@ -194,7 +169,7 @@ cds.once("served", () => {
   sandbox.get("/launchpad*", (req, res) => {
     res.status(200);
     res.send(`<!DOCTYPE html>
-        <html lang="en">
+        <html lang="ro">
         
         <head>
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -281,4 +256,5 @@ cds.once("served", () => {
 });
 
 // Delegate bootstrapping to built-in server.js of CDS
+
 module.exports = cds.server;

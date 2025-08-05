@@ -1,7 +1,7 @@
 {
   "_version": "1.65.0",
   "sap.app": {
-    "id": "suppliers",
+    "id": "com.lumbermillproxi.processing.processing",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -13,7 +13,7 @@
     "sourceTemplate": {
       "id": "@sap/generator-fiori:lrop",
       "version": "1.18.2",
-      "toolsId": "bbac4d55-b648-4636-b4f8-f8afb2d55615"
+      "toolsId": "451089ba-7d8a-432f-aff0-655e021904be"
     },
     "dataSources": {
       "mainService": {
@@ -27,11 +27,11 @@
     },
     "crossNavigation": {
       "inbounds": {
-        "Supplier-displayAll": {
-          "semanticObject": "Supplier",
-          "action": "display",
-          "title": "Furnizor",
-          "subTitle": "Lista Furnizorilor",
+        "Processing-displayAll": {
+          "semanticObject": "Processing",
+          "action": "displayAll",
+          "title": "Prelucrări",
+          "subTitle": "Listă de prelucrări",
           "signature": {
             "parameters": {},
             "additionalParameters": "allowed"
@@ -59,7 +59,7 @@
   "sap.ui5": {
     "flexEnabled": true,
     "dependencies": {
-      "minUI5Version": "1.138.0",
+      "minUI5Version": "1.138.1",
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
@@ -74,7 +74,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "suppliers.i18n.i18n"
+          "bundleName": "com.lumbermillproxi.processing.processing.i18n.i18n"
         }
       },
       "": {
@@ -99,33 +99,33 @@
       "routes": [
         {
           "pattern": ":?query:",
-          "name": "SupplierList",
-          "target": "SupplierList"
+          "name": "ProcessingsList",
+          "target": "ProcessingsList"
         },
         {
-          "pattern": "Supplier({key}):?query:",
-          "name": "SupplierObjectPage",
-          "target": "SupplierObjectPage"
+          "pattern": "Processings({key}):?query:",
+          "name": "ProcessingsObjectPage",
+          "target": "ProcessingsObjectPage"
         },
         {
-          "pattern": "Supplier({key})/materials({key2}):?query:",
+          "pattern": "Processings({key})/input_materials({key2}):?query:",
           "name": "MaterialsObjectPage",
           "target": "MaterialsObjectPage"
         }
       ],
       "targets": {
-        "SupplierList": {
+        "ProcessingsList": {
           "type": "Component",
-          "id": "SupplierList",
+          "id": "ProcessingsList",
           "name": "sap.fe.templates.ListReport",
           "options": {
             "settings": {
-              "contextPath": "/Supplier",
+              "contextPath": "/Processings",
               "variantManagement": "Page",
               "navigation": {
-                "Supplier": {
+                "Processings": {
                   "detail": {
-                    "route": "SupplierObjectPage"
+                    "route": "ProcessingsObjectPage"
                   }
                 }
               },
@@ -139,16 +139,16 @@
             }
           }
         },
-        "SupplierObjectPage": {
+        "ProcessingsObjectPage": {
           "type": "Component",
-          "id": "SupplierObjectPage",
+          "id": "ProcessingsObjectPage",
           "name": "sap.fe.templates.ObjectPage",
           "options": {
             "settings": {
               "editableHeaderContent": false,
-              "contextPath": "/Supplier",
+              "contextPath": "/Processings",
               "navigation": {
-                "materials": {
+                "input_materials": {
                   "detail": {
                     "route": "MaterialsObjectPage"
                   }
@@ -164,7 +164,7 @@
           "options": {
             "settings": {
               "editableHeaderContent": false,
-              "contextPath": "/Supplier/materials"
+              "contextPath": "/Processings/input_materials"
             }
           }
         }
